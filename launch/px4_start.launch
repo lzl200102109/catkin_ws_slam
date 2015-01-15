@@ -1,0 +1,92 @@
+<launch>
+	<arg name="fcu_url" default="serial:///dev/ttyACM0:921600" />
+	<arg name="gcs_url" default="udp://:14556@192.168.0.105:14550" />
+	<arg name="tgt_system" default="1" />
+	<arg name="tgt_component" default="50" />
+
+	<!-- usb_cam -->
+
+	<node name="camera" pkg="usb_cam" type="usb_cam_node">
+		<param name="video_device" value="/dev/video0" />
+		<!-- 
+		See3Cam supported resolution: 1280x720 (60Hz), 
+		                              1280x960 (53Hz), 
+		                               640x480 (53Hz). 
+		-->
+		<param name="image_width" value="640" />
+		<param name="image_height" value="480" />
+		<param name="pixel_format" value="yuyv" />
+		<param name="framerate" value="60" />
+		<param name="camera_frame_id" value="webcam" />
+	</node>
+
+	<!--
+	<node name="usb_cam_output" pkg="image_view" type="image_view" respawn="false" output="screen">
+		<remap from="image" to="/camera/image_raw"/>
+		<param name="autosize" value="true" />
+	</node>
+	-->
+
+	<!-- image_proc -->
+
+	<!--
+	<node name="proc" ns="camera" pkg="image_proc" type="image_proc" args="">
+	</node>
+
+	<node name="image_proc_output" pkg="image_view" type="image_view" respawn="false" output="screen">
+		<remap from="image" to="/camera/image_mono"/>
+		<param name="autosize" value="true" />
+	</node>
+	-->
+
+	<!-- mavros -->
+
+	<node name="mavros" pkg="mavros" type="mavros_node" output="screen">
+		<remap from="mavros/position/vision" to="msf_core/pose" />
+
+		<param name="fcu_url" value="$(arg fcu_url)" />
+		<param name="gcs_url" value="$(arg gcs_url)" />
+		<param name="target_system_id" value="$(arg tgt_system)" />
+		<param name="target_component_id" value="$(arg tgt_component)" />
+		<rosparam command="load" file="$(find mavros)/launch/px4_blacklist.yaml" />
+
+		<!-- enable heartbeat send and reduce timeout -->
+		<param name="conn_heartbeat" value="5.0" />
+		<param name="conn_timeout" value="10.0" />
+		<param name="startup_px4_usb_quirk" value="true" />
+		<param name="position/vision/pose_with_covariance" value="true" />
+	</node>
+
+	<!-- svo_ros -->
+
+	<node pkg="svo_ros" type="vo" name="svo" clear_params="true" output="screen">
+		<param name="cam_topic" value="/camera/image_raw" type="str" />
+		<rosparam file="$(find svo_ros)/param/camera_atan.yaml" />
+		<rosparam file="$(find svo_ros)/param/vo_px4.yaml" />
+		<param name="accept_console_user_input" value="true" />
+		<param name="publish_world_in_cam_frame" value="false" />
+
+		<!-- Initial camera orientation, make it point downwards -->
+		<param name="init_rx" value="3.1415289878" />
+		<param name="init_ry" value="0.00" />
+		<param name="init_rz" value="0.00" />
+	</node>
+
+	<node name="rviz" pkg="rviz" type="rviz">
+	</node>
+
+	<!-- msf_pose_sensor -->
+
+	<node name="msf_pose_sensor" pkg="msf_updates" type="pose_sensor" clear_params="true" output="screen">
+		<remap from="msf_core/imu_state_input" to="mavros/imu/data" />
+		<remap from="msf_updates/pose_with_covariance_input" to="svo/pose" />
+		<rosparam file="$(find msf_updates)/px4_svo_sensor_fix.yaml"/>
+	</node>
+
+	<node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure">
+	</node>
+	
+	<node name="rqt_graph" pkg="rqt_graph" type="rqt_graph">
+	</node>
+
+</launch>
