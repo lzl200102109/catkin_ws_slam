@@ -1,0 +1,27 @@
+[submodule "src/rpg_vikit"]
+	path = src/rpg_vikit
+	url = https://github.com/uzh-rpg/rpg_vikit.git
+[submodule "src/asctec_mav_framework"]
+	path = src/asctec_mav_framework
+	url = https://github.com/ethz-asl/asctec_mav_framework
+[submodule "src/catkin_simple"]
+	path = src/catkin_simple
+	url = https://github.com/ethz-asl/catkin_simple
+[submodule "src/gflags_catkin"]
+	path = src/gflags_catkin
+	url = https://github.com/ethz-asl/gflags_catkin.git
+[submodule "src/glog_catkin"]
+	path = src/glog_catkin
+	url = https://github.com/ethz-asl/glog_catkin
+[submodule "src/rpg_svo"]
+	path = src/rpg_svo
+	url = https://github.com/lzl200102109/rpg_svo.git
+[submodule "src/ethzasl_ptam"]
+	path = src/ethzasl_ptam
+	url = https://github.com/lzl200102109/ethzasl_ptam.git
+[submodule "src/ethzasl_msf"]
+	path = src/ethzasl_msf
+	url = https://github.com/lzl200102109/ethzasl_msf.git
+[submodule "src/px-ros-pkg"]
+	path = src/px-ros-pkg
+	url = https://github.com/cvg/px-ros-pkg.git
