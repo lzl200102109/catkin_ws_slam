@@ -1,0 +1,20 @@
+<launch>
+
+    <node pkg="svo_ros" type="vo" name="svo" clear_params="true" output="screen">
+        <param name="cam_topic" value="/camera/image_raw" type="str" />
+        <rosparam file="$(find svo_ros)/param/camera_pinhole.yaml" />
+        <rosparam file="$(find svo_ros)/param/vo_px4.yaml" />
+        <param name="accept_console_user_input" value="true" />
+        <param name="publish_world_in_cam_frame" value="false" />
+
+        <!-- Initial camera orientation, make it point downwards -->
+        <param name="init_rx" value="3.1415289878" />
+        <param name="init_ry" value="0.00" />
+        <param name="init_rz" value="0.00" />
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz">
+    </node>
+
+
+</launch>

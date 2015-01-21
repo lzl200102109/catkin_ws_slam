@@ -13,8 +13,4 @@
         <param name="init_rz" value="0.00" />
     </node>
 
-    <node name="rviz" pkg="rviz" type="rviz">
-    </node>
-
-
 </launch>
