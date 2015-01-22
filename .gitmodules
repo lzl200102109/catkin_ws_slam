@@ -25,3 +25,6 @@
 [submodule "src/px-ros-pkg"]
 	path = src/px-ros-pkg
 	url = https://github.com/cvg/px-ros-pkg.git
+[submodule "src/mavros"]
+	path = src/mavros
+	url = https://github.com/mavlink/mavros.git
