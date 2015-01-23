@@ -15,6 +15,11 @@ sudo apt-get install ros-indigo-usb-cam
 
 # add the workspace to ros package path
 export ROS_PACKAGE_PATH=/home/catkin_ws_slam/src:$ROS_PACKAGE_PATH
+
+# source this workspace
+source ~/catkin_ws_slam/devel/setup.sh
+
+source ~/.bashrc
 ```
 
 ## Usage
