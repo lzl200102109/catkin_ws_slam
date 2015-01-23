@@ -19,15 +19,12 @@
 [submodule "src/ethzasl_ptam"]
 	path = src/ethzasl_ptam
 	url = https://github.com/lzl200102109/ethzasl_ptam.git
-[submodule "src/px-ros-pkg"]
-	path = src/px-ros-pkg
-	url = https://github.com/cvg/px-ros-pkg.git
 [submodule "src/mavros"]
 	path = src/mavros
 	url = https://github.com/mavlink/mavros.git
-[submodule "ethzasl_msf"]
-	path = ethzasl_msf
-	url = https://github.com/lzl200102109/ethzasl_msf.git
 [submodule "src/ethzasl_msf"]
 	path = src/ethzasl_msf
 	url = https://github.com/lzl200102109/ethzasl_msf.git
+[submodule "src/px-ros-pkg"]
+	path = src/px-ros-pkg
+	url = https://github.com/cvg/px-ros-pkg.git
