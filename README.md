@@ -33,6 +33,7 @@ roslauch camera.lauch
 roslaunch svo_ros_atan.launch
 
 # launch rviz
+cp rpg_svo/svo_ros/rviz_config.rviz ~/.rviz/default.rviz
 rviz
 
 ```
